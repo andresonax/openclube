@@ -273,7 +273,7 @@ class _loginScreenState extends State<loginScreen> {
                                                                 padding: const EdgeInsets
                                                                     .symmetric(
                                                                     horizontal:
-                                                                        131,
+                                                                        16,
                                                                     vertical:
                                                                         10), // menor vertical
                                                                 shape:
