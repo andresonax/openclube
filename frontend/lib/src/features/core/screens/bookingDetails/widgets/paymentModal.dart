@@ -12,8 +12,16 @@ import '../../../controllers/bookingController.dart';
 class PaymentModal extends StatefulWidget {
   final dynamic pix;
   final int idCompra;
+  final String idClient;
+  final String cellphone;
 
-  const PaymentModal({required this.pix, required this.idCompra, Key? key})
+  const PaymentModal({
+    required this.pix, 
+    required this.idCompra, 
+    required this.idClient,
+    required this.cellphone,
+    Key? key
+  })
       : super(key: key);
 
   @override
@@ -50,12 +58,17 @@ class _PaymentModalState extends State<PaymentModal> {
       
       final response = await bookingController.checkPix(widget.idCompra);
       if (response['valor_pago'] != null) {
-        _closeDialog(navigateTo: '/myAgenda');
-        /*
-          bookingController.sendPaymentConfirmationWhatsApp(
-          
+        try {
+          await bookingController.sendPaymentConfirmationWhatsApp(
+            widget.idClient,
+            widget.cellphone,
+            widget.idCompra,
           );
-        */
+        } catch (e) {
+          print('Erro ao enviar confirmação: $e');
+        } finally {
+          _closeDialog(navigateTo: '/listing');
+        }
       }
       
 

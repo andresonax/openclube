@@ -619,7 +619,12 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
   void openModalPayment(BuildContext context, dynamic pix, int idCompra) {
     showDialog(
       context: context,
-      builder: (_) => PaymentModal(pix: pix, idCompra: idCompra),
+      builder: (_) => PaymentModal(
+        pix: pix,
+        idCompra: idCompra,
+        idClient: courtData['idClient'].toString(),
+        cellphone: userData[0]['celular'].toString()
+      ),
     );
   }
 
@@ -663,11 +668,12 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
         dynamic pix = await bookingController.viewPix(result['id_compra']);
 
         //envia pix por whatsapp
-
         await bookingController.sendPixCodeWhatsApp(
             courtData['idClient'].toString(),
             userData[0]['celular'].toString(),
-            pix['texto_qr_code'].toString());
+            pix['texto_qr_code'].toString(),
+            result['id_compra']
+        );
 
         //abre modal de pagamento
         openModalPayment(context, pix, result['id_compra']);
