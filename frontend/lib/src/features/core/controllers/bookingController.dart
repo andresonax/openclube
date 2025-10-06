@@ -109,16 +109,16 @@ class BookingController extends GetxController {
 
   //envia código pix por whatsapp
   Future<void> sendPixCodeWhatsApp(
-      String clientId, String phoneNumber, String pixCode) async {
+      String clientId, String phoneNumber, String pixCode, int id_compra) async {
     return await bookingRepo.sendPixCodeWhatsapp(
-        clientId, phoneNumber, pixCode);
+        clientId, phoneNumber, pixCode, id_compra);
   }
 
   //envia confirmação de pagamento por whatsapp
   Future<void> sendPaymentConfirmationWhatsApp(
-      String clientId, String phoneNumber) async {
+      String clientId, String phoneNumber, int idCompra) async {
     return await bookingRepo.sendPaymentConfirmationWhatsApp(
-        clientId, phoneNumber);
+        clientId, phoneNumber, idCompra);
   }
 
   Future<List<dynamic>> fetchUserData(String userID) async {

@@ -189,11 +189,17 @@ class BookingRepository extends GetxController {
   }
 
   //envia código pix por whatsapp
-  Future<void> sendPixCodeWhatsapp(String clientId, String phoneNumber, String pixCode) async {
+  Future<void> sendPixCodeWhatsapp(
+    String clientId,
+    String phoneNumber,
+    String pixCode,
+    int idCompra
+    ) async {
     Map<String, dynamic> whatsappData = {
       'session_name': clientId,
       'phone_number': phoneNumber,
       'pix_code': pixCode,
+      'id_compra': idCompra
     };
 
     print('dados whatsapp');
@@ -212,10 +218,15 @@ class BookingRepository extends GetxController {
   }
 
   //envia confirmação de pagamento por whatsapp
-  Future<void> sendPaymentConfirmationWhatsApp(String clientId, String phoneNumber) async {
+  Future<void> sendPaymentConfirmationWhatsApp(
+    String clientId,
+    String phoneNumber,
+    int idCompra
+    ) async {
     Map<String, dynamic> whatsappData = {
       'session_name': clientId,
       'phone_number': phoneNumber,
+      'id_compra': idCompra
     };
 
     final response = await http.post(
