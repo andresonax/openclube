@@ -49,7 +49,7 @@ class BookingController extends GetxController {
     return await bookingRepo.registerCpf(idUser, cpf);
   }
 
-  Future<bool> registerAgenda(
+  Future<Map<String, dynamic>> registerAgenda(
     int idUser,
     int idSpace,
     String userType,

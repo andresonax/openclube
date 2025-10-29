@@ -99,6 +99,7 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
     super.initState();
     setState(() {
       conditions = widget.paymentConditions;
+      endRepetitionDate = widget.date;
     });
     setInitialCondition();
     fetchUserData();
@@ -180,7 +181,7 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
 
   void registerAgenda() async {
     for (var i = 0; i < widget.selectedSlots.length; ++i) {
-      bool result = await bookingController.registerAgenda(
+      var result = await bookingController.registerAgenda(
         int.parse(await getIdUser()),
         widget.idPlace,
         userType,
@@ -196,7 +197,7 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
         _selectedPaymentMethod,
         _selectedPaymentOption,
       );
-      if (result == true) {
+      if (result['err'] == null || result['err'] == false) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Agenda registrada com sucesso!"),
@@ -205,7 +206,16 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
           ),
         );
         Get.toNamed('/myAgenda');
-      } else {
+      }else if(result['err'] == true && result['data']['msg'] == "Um ou mais horários inválidos. Tente novamente!"){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Um ou mais horários inválidos. Tente novamente!"),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } 
+      else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Erro ao registrar agenda"),
@@ -618,6 +628,7 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
 
   void openModalPayment(BuildContext context, dynamic pix, int idCompra) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (_) => PaymentModal(
         pix: pix,
@@ -975,7 +986,7 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
                                               repetition = value ?? false;
                                               if (repetition == false) {
                                                 endRepetitionDate =
-                                                    DateTime.now();
+                                                    widget.date;
                                               }
                                             });
                                           },
@@ -999,6 +1010,37 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
                                                           endRepetitionDate,
                                                       firstDate: DateTime.now(),
                                                       lastDate: DateTime(2100),
+                                                      builder:
+                                                          (BuildContext context,
+                                                              Widget? child) {
+                                                        return Theme(
+                                                          data:
+                                                              Theme.of(context)
+                                                                  .copyWith(
+                                                            colorScheme:
+                                                                const ColorScheme
+                                                                    .light(
+                                                              primary:
+                                                                  globalPrimaryColor,
+                                                              onPrimary:
+                                                                  Colors.white,
+                                                              onSurface:
+                                                                  Colors.black,
+                                                            ),
+                                                            dialogBackgroundColor:
+                                                                Colors.white,
+                                                            textButtonTheme:
+                                                                TextButtonThemeData(
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                foregroundColor:
+                                                                    globalPrimaryColor, // Cor do texto do botão
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          child: child!,
+                                                        );
+                                                      },
                                                     );
                                                     if (pickedDate != null) {
                                                       setState(() {

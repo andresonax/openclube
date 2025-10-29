@@ -2,7 +2,7 @@ name: clubedaareia
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+5
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -49,7 +49,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: false
-  image_path: "assets/images/logo-client.png"
+  image_path: "assets/images/logo-open.png"
 
 flutter:
 

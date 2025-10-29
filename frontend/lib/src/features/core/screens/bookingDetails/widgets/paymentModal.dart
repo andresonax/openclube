@@ -67,7 +67,7 @@ class _PaymentModalState extends State<PaymentModal> {
         } catch (e) {
           print('Erro ao enviar confirmação: $e');
         } finally {
-          _closeDialog(navigateTo: '/listing');
+          _closeDialog(navigateTo: '/myAgenda');
         }
       }
       

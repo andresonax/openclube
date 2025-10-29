@@ -84,7 +84,7 @@ class BookingRepository extends GetxController {
     }
   }
 
-  Future<bool> registerAgenda(
+  Future<Map<String, dynamic>> registerAgenda(
     int idUser,
     int idSpace,
     String userType,
@@ -124,11 +124,8 @@ class BookingRepository extends GetxController {
       },
       body: jsonEncode(agendaData),
     );
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return json.decode(response.body);
+
   }
 
   Future<Map<String, dynamic>> registerCompra(int idUser, String userType,
