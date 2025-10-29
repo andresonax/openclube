@@ -187,8 +187,9 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
         userType,
         widget.date,
         widget.selectedSlots[i],
-        (widget.basePrice / widget.selectedSlots.length)
-            .toString(), //valor de um slot
+        //(widget.basePrice / widget.selectedSlots.length)
+        //    .toString(), //valor de um slot
+        totalValue.toString(),
         observationController.text,
         repetition == false ? 0 : 1,
         endRepetitionDate,
@@ -487,7 +488,7 @@ class _BookingDetailsBodyState extends State<BookingDetailsBody> {
                           ),
                           TextSpan(
                             text:
-                                "${calculateTotalPrice(totalValue).toStringAsFixed(2)}R\$",
+                                "${totalValue.toStringAsFixed(2)}R\$",
                             style:
                                 const TextStyle(fontWeight: FontWeight.normal),
                           ),
