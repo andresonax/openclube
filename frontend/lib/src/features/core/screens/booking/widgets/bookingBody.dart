@@ -379,7 +379,10 @@ class _BookingBodyState extends State<BookingBody> {
                                         daysTimeSlotsBookedRepetition[selectedDayIndex][i]
                                             .toString()
                                             .substring(0, 1))) &&
-                            currentDate.isBefore(DateTime.parse(daysTimeSlotsBookedRepetition[selectedDayIndex][i].toString().substring(3, 13)))) {
+                           (currentDate.isBefore(DateTime.parse(daysTimeSlotsBookedRepetition[selectedDayIndex][i].toString().substring(3, 13))) 
+                            || currentDate.toString().substring(0,10) == daysTimeSlotsBookedRepetition[selectedDayIndex][i].toString().substring(3, 13)
+                            )
+                             && currentDate.isAfter(DateTime.parse(daysTimeSlotsBooked[selectedDayIndex][i].toString().substring(0,10)))) {
                       isBooked = true;
                     }
                   }
